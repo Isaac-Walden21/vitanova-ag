@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+:root {
+  /* Earthy palette */
+  --color-cream: #F5F0E8;
+  --color-cream-dark: #EDE7DA;
+  --color-soil: #3D2B1F;
+  --color-soil-light: #5C3D2E;
+  --color-forest: #2D5016;
+  --color-sage: #7C9A6E;
+  --color-sage-light: #A3B899;
+  --color-wheat: #C4A94D;
+  --color-wheat-light: #D4BC6A;
+  --color-stone: #8B8178;
+  --color-border: #D6CFC4;
+  --color-border-dark: #B8AFA3;
+
+  /* Spacing */
+  --section-padding: clamp(4rem, 10vw, 8rem);
+}
+
+@theme inline {
+  --color-cream: var(--color-cream);
+  --color-cream-dark: var(--color-cream-dark);
+  --color-soil: var(--color-soil);
+  --color-soil-light: var(--color-soil-light);
+  --color-forest: var(--color-forest);
+  --color-sage: var(--color-sage);
+  --color-sage-light: var(--color-sage-light);
+  --color-wheat: var(--color-wheat);
+  --color-wheat-light: var(--color-wheat-light);
+  --color-stone: var(--color-stone);
+  --color-border: var(--color-border);
+  --color-border-dark: var(--color-border-dark);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+}
+
+/* ── Base ── */
+body {
+  background: var(--color-cream);
+  color: var(--color-soil);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Layout utilities ── */
+.grid-shell {
+  width: min(1200px, 90vw);
+  margin: 0 auto;
+}
+
+.grid-narrow {
+  width: min(800px, 90vw);
+  margin: 0 auto;
+}
+
+.section-shell {
+  padding-block: var(--section-padding);
+}
+
+.section-cream {
+  background: var(--color-cream);
+}
+
+.section-white {
+  background: #FDFCFA;
+}
+
+.section-soil {
+  background: var(--color-soil);
+  color: var(--color-cream);
+}
+
+.section-forest {
+  background: var(--color-forest);
+  color: var(--color-cream);
+}
+
+/* ── Typography ── */
+.text-display {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.text-hero {
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+/* ── Spotlight card (from reactbits) ── */
+.card-spotlight {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+  background: #FDFCFA;
+  padding: 2rem;
+  overflow: hidden;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --spotlight-color: rgba(125, 154, 110, 0.2);
+}
+
+.card-spotlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 80%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.card-spotlight:hover::before,
+.card-spotlight:focus-within::before {
+  opacity: 0.8;
+}
