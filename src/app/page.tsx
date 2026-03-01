@@ -1,8 +1,9 @@
 import { Hero } from "@/components/sections/Hero";
 import { StatsBar } from "@/components/sections/StatsBar";
 import { ProductGrid } from "@/components/sections/ProductGrid";
+import { FloatingInterstitial } from "@/components/sections/FloatingInterstitial";
 import { Mission } from "@/components/sections/Mission";
-import { CtaBlock } from "@/components/sections/CtaBlock";
+import { RibbonCta } from "@/components/sections/RibbonCta";
 
 export default function Page() {
   return (
@@ -10,8 +11,9 @@ export default function Page() {
       <Hero />
       <StatsBar />
       <ProductGrid />
+      <FloatingInterstitial />
       <Mission />
-      <CtaBlock />
+      <RibbonCta />
     </>
   );
 }

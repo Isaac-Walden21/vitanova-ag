@@ -2,18 +2,29 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import BlurText from "@/components/animations/BlurText";
 import { hero } from "@/content/site";
+
+const Waves = dynamic(() => import("@/components/animations/Waves"), {
+  ssr: false,
+});
 
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-cream">
-      {/* Background texture */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233D2B1F' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}
+      {/* Interactive waves background */}
+      <Waves
+        lineColor="rgba(45, 80, 22, 0.12)"
+        waveSpeedX={0.015}
+        waveSpeedY={0.008}
+        waveAmpX={40}
+        waveAmpY={20}
+        xGap={12}
+        yGap={36}
+        friction={0.92}
+        tension={0.008}
+        maxCursorMove={120}
       />
 
       {/* Soft green gradient */}
@@ -37,8 +48,8 @@ export function Hero() {
             Seed &middot; Fertilizer &middot; Crop Protection
           </motion.span>
 
-          {/* Headline */}
-          <h1 className="text-hero text-soil">
+          {/* Headline — Playfair serif */}
+          <h1 className="text-hero text-soil" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>
             <BlurText
               text={hero.headline}
               className="font-normal"
@@ -82,7 +93,7 @@ export function Hero() {
       </div>
 
       {/* Bottom fade */}
-      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-cream to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-cream to-transparent pointer-events-none z-10" />
     </section>
   );
 }
