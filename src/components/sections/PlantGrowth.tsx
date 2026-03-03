@@ -78,13 +78,14 @@ function GrowthStage({
   const end = (index + 1) / STAGE_COUNT;
   const mid = (start + end) / 2;
 
-  // Image: wipe-up reveal via clip-path, first image starts fully visible
+  // Image: wipe-up reveal via clip-path
+  // First image is always fully visible (no clip animation)
   const clipTop = useTransform(
     scrollProgress,
     index === 0
-      ? [0, 0] // first image always visible
+      ? [0, 0.001] // tiny range so it resolves immediately to 0
       : [start, start + 0.04],
-    index === 0 ? [0, 0] : [100, 0]
+    [index === 0 ? 0 : 100, 0]
   );
 
   const clipPath = useTransform(clipTop, (v) => `inset(${v}% 0 0 0)`);
@@ -111,7 +112,7 @@ function GrowthStage({
   const numberOpacity = useTransform(
     scrollProgress,
     [start + 0.02, start + 0.06, end - 0.06, end - 0.02],
-    [0, 0.15, 0.15, 0]
+    [0, 0.12, 0.12, 0]
   );
 
   return (
@@ -124,17 +125,17 @@ function GrowthStage({
           zIndex: index + 1,
         }}
       >
-        <motion.div className="w-full h-full" style={{ scale }}>
+        <motion.div className="relative w-full h-full" style={{ scale }}>
           <Image
             src={stage.image}
             alt={stage.label}
             fill
             className="object-cover"
             sizes="100vw"
-            priority={index < 2}
+            priority={index < 3}
           />
-          {/* Dark overlay for text readability */}
-          <div className="absolute inset-0 bg-black/40" />
+          {/* Heavier overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/60" />
         </motion.div>
       </motion.div>
 
@@ -154,35 +155,31 @@ function GrowthStage({
 
       {/* Product callout annotation */}
       <motion.div
-        className="absolute z-30 w-[320px] sm:w-[380px] max-w-[85vw]"
+        className="absolute w-[320px] sm:w-[400px] max-w-[85vw]"
         style={{
           opacity: calloutOpacity,
           x: calloutX,
           y: calloutY,
+          zIndex: STAGE_COUNT * 2 + index,
           ...stage.position,
         }}
       >
-        <div className="relative">
+        {/* Frosted glass card for readability */}
+        <div className="rounded-xl bg-black/30 backdrop-blur-md border border-white/10 p-6 sm:p-7">
           {/* Accent line */}
-          <div
-            className={`absolute top-0 ${
-              stage.side === "left" ? "left-0" : "right-0"
-            } w-10 h-[2px] bg-wheat`}
-          />
-          <div className="pt-4">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-wheat/80 font-medium">
-              Stage {String(index + 1).padStart(2, "0")}
-            </span>
-            <h3
-              className="mt-2 text-xl sm:text-2xl text-white font-normal"
-              style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
-            >
-              {stage.label}
-            </h3>
-            <p className="mt-3 text-sm text-white/70 leading-relaxed">
-              {stage.description}
-            </p>
-          </div>
+          <div className="w-10 h-[2px] bg-wheat mb-4" />
+          <span className="text-[10px] uppercase tracking-[0.3em] text-wheat font-medium">
+            Stage {String(index + 1).padStart(2, "0")}
+          </span>
+          <h3
+            className="mt-2 text-xl sm:text-2xl text-white font-normal drop-shadow-lg"
+            style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+          >
+            {stage.label}
+          </h3>
+          <p className="mt-3 text-sm text-white/80 leading-relaxed">
+            {stage.description}
+          </p>
         </div>
       </motion.div>
     </>
@@ -216,7 +213,7 @@ export function PlantGrowth() {
       <div className="sticky top-0 h-screen overflow-hidden">
         {/* Progress bar */}
         <motion.div
-          className="absolute top-0 left-0 h-[2px] bg-wheat/60 z-40"
+          className="absolute top-0 left-0 h-[2px] bg-wheat/60 z-50"
           style={{ width: progressWidth }}
         />
 
@@ -232,15 +229,15 @@ export function PlantGrowth() {
 
         {/* Scroll hint */}
         <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 text-center"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 text-center"
           style={{ opacity: hintOpacity }}
         >
           <div className="flex flex-col items-center gap-2">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-white/50">
+            <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 drop-shadow-md">
               Scroll to grow
             </span>
             <motion.div
-              className="w-[1px] h-6 bg-white/30"
+              className="w-[1px] h-6 bg-white/40"
               animate={{ scaleY: [1, 0.4, 1] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
             />
