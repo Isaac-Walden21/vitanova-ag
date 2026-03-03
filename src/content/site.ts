@@ -22,10 +22,10 @@ export const hero = {
 };
 
 export const stats = [
-  { value: 500, suffix: "+", label: "Products Available" },
-  { value: 12000, suffix: "", label: "Acres Supported" },
-  { value: 98, suffix: "%", label: "Customer Retention" },
-  { value: 15, suffix: "+", label: "Years of Experience" },
+  { value: 4, suffix: "", label: "Product Lines" },
+  { value: 200, suffix: "+", label: "SKUs Available" },
+  { value: 50, suffix: "+", label: "Seed Varieties" },
+  { value: 100, suffix: "%", label: "Grower-Focused" },
 ];
 
 export const productCategories = [

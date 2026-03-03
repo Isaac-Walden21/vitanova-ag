@@ -12,7 +12,7 @@ export function StatsBar() {
   return (
     <section className="section-forest">
       <div className="grid-shell" ref={ref}>
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-4">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-4 md:gap-8">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -25,7 +25,7 @@ export function StatsBar() {
                 ease: [0.25, 1, 0.5, 1],
               }}
             >
-              <p className="text-4xl font-light text-cream md:text-5xl">
+              <p className="text-5xl font-light text-cream md:text-6xl">
                 <CountUp
                   to={stat.value}
                   duration={2.5}
@@ -33,7 +33,7 @@ export function StatsBar() {
                   suffix={stat.suffix}
                 />
               </p>
-              <p className="mt-2 text-xs uppercase tracking-[0.2em] text-sage-light/70">
+              <p className="mt-3 text-xs uppercase tracking-[0.2em] text-sage-light/70">
                 {stat.label}
               </p>
             </motion.div>
