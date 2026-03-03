@@ -75,7 +75,7 @@ body {
 .section-forest {
   background: var(--color-forest);
   color: var(--color-cream);
-  padding-block: var(--section-padding);
+  padding-block: clamp(2rem, 5vw, 3.5rem);
 }
 
 /* ── Typography ── */

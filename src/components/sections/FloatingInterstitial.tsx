@@ -9,7 +9,7 @@ const ScrollFloat = dynamic(() => import("@/components/animations/ScrollFloat"),
 export function FloatingInterstitial() {
   return (
     <section className="section-forest relative overflow-hidden">
-      <div className="grid-shell flex items-center justify-center" style={{ paddingBlock: "clamp(6rem, 14vw, 12rem)" }}>
+      <div className="grid-shell flex items-center justify-center" style={{ paddingBlock: "clamp(2.5rem, 6vw, 4rem)" }}>
         <ScrollFloat
           className="text-center"
           textClassName="text-cream/90"
